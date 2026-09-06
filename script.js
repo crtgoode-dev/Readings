@@ -4,8 +4,8 @@ let current=0,visible=[...books.keys()];
 count.textContent=`${books.length} books · 2018–2026`;
 const years=[...new Set(books.map(b=>b[2]))];
 ['all',...years].forEach((y,i)=>{const b=document.createElement('button');b.textContent=y==='all'?'All':y;b.dataset.year=y;b.className=i?'':'active';b.onclick=()=>apply(String(y),b);filters.appendChild(b)});
-books.forEach((b,i)=>{const f=document.createElement('figure');f.className='book';f.dataset.year=b[2];f.innerHTML=`<button aria-label="Open book from ${b[1]}"><img loading="lazy" src="images/${b[0]}" alt="Book cover photographed ${b[1]}"></button><figcaption>${b[1]}</figcaption>`;f.querySelector('button').onclick=()=>openBook(i);gallery.appendChild(f)});
+books.forEach((b,i)=>{const f=document.createElement('figure');f.className='book';f.dataset.year=b[2];f.innerHTML=`<button aria-label="Open book from ${b[1]}"><img loading="lazy" src="${b[0]}" alt="Book cover photographed ${b[1]}"></button><figcaption>${b[1]}</figcaption>`;f.querySelector('button').onclick=()=>openBook(i);gallery.appendChild(f)});
 function apply(y,btn){[...filters.children].forEach(x=>x.classList.toggle('active',x===btn));visible=[];[...gallery.children].forEach((f,i)=>{const show=y==='all'||f.dataset.year===y;f.hidden=!show;if(show)visible.push(i)})}
-function openBook(i){current=i;const b=books[i];img.src=`images/${b[0]}`;img.alt=`Book cover photographed ${b[1]}`;cap.textContent=b[1];if(!dialog.open)dialog.showModal()}
+function openBook(i){current=i;const b=books[i];img.src=`${b[0]}`;img.alt=`Book cover photographed ${b[1]}`;cap.textContent=b[1];if(!dialog.open)dialog.showModal()}
 function move(d){const p=visible.indexOf(current);if(p<0)return;openBook(visible[(p+d+visible.length)%visible.length])}
 document.getElementById('close').onclick=()=>dialog.close();document.getElementById('prev').onclick=()=>move(-1);document.getElementById('next').onclick=()=>move(1);dialog.onclick=e=>{if(e.target===dialog)dialog.close()};document.onkeydown=e=>{if(!dialog.open)return;if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)};
