@@ -138,8 +138,8 @@
     b.onclick=()=>{selectedYear=String(y);[...filtersEl.children].forEach(x=>x.classList.toggle('active',x===b));renderGallery()};filtersEl.appendChild(b);
   });
   searchEl.oninput=()=>{query=searchEl.value.trim().toLowerCase();renderGallery()};
-  galleryView.onclick=()=>{galleryView.classList.add('active');bibliographyView.classList.remove('active');galleryEl.hidden=false;bibEl.hidden=true};
-  bibliographyView.onclick=()=>{bibliographyView.classList.add('active');galleryView.classList.remove('active');galleryEl.hidden=true;bibEl.hidden=false;renderBibliography()};
+  galleryView.onclick=()=>{galleryView.classList.add('active');bibliographyView.classList.remove('active');galleryEl.hidden=false;bibEl.hidden=true;galleryEl.scrollIntoView({behavior:'smooth',block:'start'})};
+  bibliographyView.onclick=()=>{bibliographyView.classList.add('active');galleryView.classList.remove('active');galleryEl.hidden=true;bibEl.hidden=false;renderBibliography();requestAnimationFrame(()=>bibEl.scrollIntoView({behavior:'smooth',block:'start'}))};
   document.getElementById('prev').onclick=()=>moveRecord(-1);document.getElementById('next').onclick=()=>moveRecord(1);
   renderGallery();
 })();
