@@ -40,7 +40,7 @@
 
   let metadata=new Map();
   try{
-    const csvFiles=['books.csv','books-073-120.csv','books-121-168.csv','books-169-216.csv','books-217-266.csv'];
+    const csvFiles=['books.csv','books-073-120.csv','books-121-168.csv','books-169-216.csv','books-217-266.csv','books-267.csv'];
     const loaded=await Promise.all(csvFiles.map(async name=>{
       const res=await fetch(name,{cache:'no-store'});
       return res.ok?parseCSV(await res.text()):[];
